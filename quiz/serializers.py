@@ -1,6 +1,6 @@
 from django.forms import TypedChoiceField
 from rest_framework import serializers
-from .models import MultiQuestion, Subject
+from .models import MultiQuestion, Student, Subject
 
 class MultiQuestionSerializer(serializers.ModelSerializer):
     class Meta:
@@ -12,4 +12,9 @@ class SubjectSerializer(serializers.ModelSerializer):
     class Meta:
         model = Subject
         fields =['subject_text']
+
+class StudentSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Student
+        fields =['name','age','gender']
     

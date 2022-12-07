@@ -31,3 +31,14 @@ class MultiQuestion(models.Model):
     def __str__(self):
         return self.question_text
 
+class Student(models.Model):
+    GENDER = (('female','female'), ('male','male'))
+    
+    name = models.CharField('Student Name', max_length=200, default='')
+    age = models.IntegerField('Student Age', default=0)
+    gender = models.CharField('Student Gender',choices=GENDER ,max_length=100, default='female')
+
+
+    def __str__(self):
+        return self.name
+
