@@ -10,7 +10,7 @@ class Subject(models.Model):
     subject_text = models.CharField('Quiz Subject', max_length=100)
 
     def __str__(self):
-        return self.subject_text
+        return '<%s:%s>' % (self.subject_text, 'Subject')
 
 class MultiQuestion(models.Model):
     TYPE_CHOICES = ((0, 'Single Answer'),(1, 'Multi Answer'))
@@ -29,16 +29,23 @@ class MultiQuestion(models.Model):
     point = models.IntegerField('Point', default=0)
 
     def __str__(self):
-        return self.question_text
+        return '<%s:%s>' % (self.question_text, 'Quiz Question')
 
 class Student(models.Model):
-    GENDER = (('female','female'), ('male','male'))
-    
-    name = models.CharField('Student Name', max_length=200, default='')
+    sid = models.BigAutoField('Student Id', primary_key=True, default=None)
+    name = models.CharField('Student Name', max_length=200, unique=True, default=None)
     age = models.IntegerField('Student Age', default=0)
-    gender = models.CharField('Student Gender',choices=GENDER ,max_length=100, default='female')
-
+    gender = models.BooleanField('Gender',choices=((0,'female'),(1,'male')), default=0)
+    pwd = models.CharField('Password',max_length=20, default=None)
 
     def __str__(self):
-        return self.name
+        return '<%s:%s>' % (self.name, 'Student Name')
 
+
+class Record(models.Model):
+    sid = models.ForeignKey(Student,on_delete=models.CASCADE,verbose_name='Student Id',related_name='stu_id')
+    score = models.IntegerField('Score', default=0)
+    rtime = models.DateTimeField('Submit Time:',blank=True,null=True)
+
+    def __str__(self):
+        return '<%s:%s>' % (self.sid, 'Score')
